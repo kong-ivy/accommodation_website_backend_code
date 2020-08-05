@@ -1,0 +1,397 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is the API for the login and sign up system for our Orange booking website.",
+    "version": "1.0.0",
+    "title": "Login/Sign up",
+    "termsOfService": "http://www.orange.com/login",
+    "contact": {
+      "email": "zx.student@unsw.edu.au"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "basePath": "/v2",
+  "tags": [
+    {
+      "name": "user",
+      "description": "Operations about user",
+      "externalDocs": {
+        "description": "Login and sign up system",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "supplier",
+      "description": "Operations about supplier",
+      "externalDocs": {
+        "description": "Login and sign up system",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "paths": {
+    "/user": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "createUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "User created successfully"
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Userlogin",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "User_login",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "user Login",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful login",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs out current logged in user session",
+        "description": "",
+        "operationId": "logoutUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "description": "The user name for out",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/info": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get all the info of the user.",
+        "operationId": "Userinfo",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "query",
+            "description": "The user id for search",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/supplier": {
+      "post": {
+        "tags": [
+          "supplier"
+        ],
+        "summary": "Create supplier",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "createSupplier",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Supplier"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Supplier created successfully"
+          }
+        }
+      }
+    },
+    "/supplier/login": {
+      "post": {
+        "tags": [
+          "supplier"
+        ],
+        "summary": "Supplierlogin",
+        "description": "This can only be done by the logged in supplier.",
+        "operationId": "Supplier_login",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "supplier Login",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful login",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/supplier/logout": {
+      "get": {
+        "tags": [
+          "supplier"
+        ],
+        "summary": "Logs out current logged in user session",
+        "description": "",
+        "operationId": "supplierlogout",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "suppliername",
+            "in": "query",
+            "description": "The user name for login",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/supplier/info": {
+      "get": {
+        "tags": [
+          "supplier"
+        ],
+        "summary": "Get the supplier info",
+        "description": "",
+        "operationId": "supplierinfo",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "query",
+            "description": "The user name for login",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful login",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Invalid sid supplied"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "user_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://orange/user",
+      "flow": "implicit",
+      "scopes": {
+        "write:pets": "modify user in your account",
+        "read:pets": "read your user"
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Unique Id for each user"
+        },
+        "last_name": {
+          "type": "string",
+          "description": "User's last name"
+        },
+        "first_name": {
+          "type": "string",
+          "description": "User's first name"
+        },
+        "birthday": {
+          "type": "string",
+          "description": "User's birthday"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address"
+        },
+        "password": {
+          "type": "string",
+          "description": "password"
+        },
+        "mobile_phone": {
+          "type": "string",
+          "description": "Mobile phone"
+        },
+        "userStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "User Status"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "Login": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "Email address"
+        },
+        "password": {
+          "type": "string",
+          "description": "password"
+        }
+      },
+      "xml": {
+        "name": "Login"
+      }
+    },
+    "Supplier": {
+      "type": "object",
+      "properties": {
+        "sid": {
+          "type": "string",
+          "description": "Unique Id for each supplier"
+        },
+        "last_name": {
+          "type": "string",
+          "description": "Supplier's last name"
+        },
+        "first_name": {
+          "type": "string",
+          "description": "Supplier's first name"
+        },
+        "birthday": {
+          "type": "string",
+          "description": "Supplier's birthday"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address"
+        },
+        "password": {
+          "type": "string",
+          "description": "password"
+        },
+        "mobile_phone": {
+          "type": "string",
+          "description": "Mobile phone"
+        },
+        "userStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Supplier Status"
+        }
+      },
+      "xml": {
+        "name": "Supplier"
+      }
+    }
+  }
+}

@@ -1,0 +1,455 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is the API for the login and sign up system for our Orange booking website.",
+    "version": "1.0.0",
+    "title": "Room system",
+    "termsOfService": "http://www.orange.com/room",
+    "contact": {
+      "email": "zx.student@unsw.edu.au"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "basePath": "/v2",
+  "tags": [
+    {
+      "name": "room",
+      "description": "Room service",
+      "externalDocs": {
+        "description": "Room service",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "paths": {
+    "/room": {
+      "post": {
+        "tags": [
+          "room"
+        ],
+        "summary": "Create a new room",
+        "description": "This can only be done by the logged in supplier.",
+        "operationId": "createRoom",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Room"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "User created successfully"
+          }
+        }
+      }
+    },
+    "/room/search": {
+      "get": {
+        "tags": [
+          "room"
+        ],
+        "summary": "search service",
+        "description": "",
+        "operationId": "search_room",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "city",
+            "in": "query",
+            "description": "The city of room",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "suburb",
+            "in": "query",
+            "description": "The suburb of the room",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "check_in_date",
+            "in": "query",
+            "description": "the date of checkin",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "check_out_date",
+            "in": "query",
+            "description": "the date of checkin",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Rooms"
+            }
+          }
+        }
+      }
+    },
+    "/room/supplier": {
+      "get": {
+        "tags": [
+          "room"
+        ],
+        "summary": "search service",
+        "description": "",
+        "operationId": "logoutUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "query",
+            "description": "The supplier of the room",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Rooms"
+            }
+          }
+        }
+      }
+    },
+    "/room/cancel": {
+      "post": {
+        "tags": [
+          "room"
+        ],
+        "description": "This can only be done by the logged in supplier.",
+        "operationId": "cancelRoom",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Roomid"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "User created successfully"
+          }
+        }
+      }
+    },
+    "/booking": {
+      "post": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "book a room",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "bookRoom",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Order has been booked"
+          }
+        }
+      }
+    },
+    "/booking/user": {
+      "get": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "search service",
+        "description": "",
+        "operationId": "Get all the orders",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "query",
+            "description": "The supplier of the room",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Orders"
+            }
+          }
+        }
+      }
+    },
+    "/booking/cancelorder": {
+      "post": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "book a room",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "cancelorder",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Orderid"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Cancel Order has been booked"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Room": {
+      "type": "object",
+      "properties": {
+        "rid": {
+          "type": "string",
+          "description": "Unique Id for each room"
+        },
+        "sid": {
+          "type": "string",
+          "description": "supplier of the room"
+        },
+        "city": {
+          "type": "string",
+          "description": "city of the room"
+        },
+        "Suburb": {
+          "type": "string",
+          "description": "Surburb of the room"
+        },
+        "Address": {
+          "type": "string",
+          "description": " of the room"
+        },
+        "name": {
+          "type": "string",
+          "description": "name"
+        },
+        "slug": {
+          "type": "string",
+          "description": "room slug"
+        },
+        "type": {
+          "type": "string",
+          "description": "room type"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int32",
+          "description": "price of room"
+        },
+        "capacity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "capacity"
+        },
+        "pets": {
+          "type": "boolean",
+          "description": "allow pets or not"
+        },
+        "breakfast": {
+          "type": "boolean",
+          "description": "have breakfast or not"
+        },
+        "airconditioner": {
+          "type": "boolean",
+          "description": "have airconditioner or not"
+        },
+        "carpark": {
+          "type": "boolean",
+          "description": "Have carpark or not"
+        },
+        "wifi": {
+          "type": "boolean",
+          "description": "Have wifi or not"
+        },
+        "gym": {
+          "type": "boolean",
+          "description": "Have gym or not"
+        },
+        "kitchen": {
+          "type": "boolean",
+          "description": "Have kitchen or not"
+        },
+        "description": {
+          "type": "string",
+          "description": "Introduce your room"
+        },
+        "url1": {
+          "type": "string",
+          "description": "the address of the room images"
+        },
+        "url2": {
+          "type": "string",
+          "description": "the address of the room images"
+        },
+        "url3": {
+          "type": "string",
+          "description": "the address of the room images"
+        },
+        "url4": {
+          "type": "string",
+          "description": "the address of the room images"
+        },
+        "url5": {
+          "type": "string",
+          "description": "the address of the room images"
+        }
+      },
+      "xml": {
+        "name": "Room"
+      }
+    },
+    "Order": {
+      "type": "object",
+      "properties": {
+        "rid": {
+          "type": "string",
+          "description": "Unique Id for each room"
+        },
+        "uid": {
+          "type": "string",
+          "description": "the user id of order"
+        },
+        "first_name": {
+          "type": "string",
+          "description": "first name of user who will check in"
+        },
+        "last_name": {
+          "type": "string",
+          "description": "last name of user who will check in"
+        },
+        "email": {
+          "type": "string",
+          "description": "email of user who will check in"
+        },
+        "mobile_phone": {
+          "type": "string",
+          "description": "moblie of user who will check in"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int32",
+          "description": "price of room"
+        },
+        "date_start": {
+          "type": "string",
+          "description": "Start date for order"
+        },
+        "date_end": {
+          "type": "string",
+          "description": "End date for order"
+        },
+        "payment_statue": {
+          "type": "boolean",
+          "description": "the statute of order payment"
+        }
+      },
+      "xml": {
+        "name": "Order"
+      }
+    },
+    "Roomid": {
+      "type": "object",
+      "properties": {
+        "rid": {
+          "type": "string",
+          "description": "Unique Id for each room"
+        }
+      },
+      "xml": {
+        "name": "Roomid"
+      }
+    },
+    "Orderid": {
+      "type": "object",
+      "properties": {
+        "rid": {
+          "type": "string",
+          "description": "Unique Id for each room"
+        },
+        "uid": {
+          "type": "string",
+          "description": "Unique Id for user"
+        }
+      },
+      "xml": {
+        "name": "Orderid"
+      }
+    },
+    "Rooms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Room"
+      }
+    },
+    "Orders": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Order"
+      }
+    }
+  }
+}
